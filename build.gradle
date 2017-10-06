@@ -69,7 +69,7 @@ subprojects { p ->
 
     bintray {
         user = 'jdiazcano'
-        key = System.getenv("BINTRAY_KEY")
+        key = "62a3586947e889fe142f4778c5f6e70dae8ee9e9"
         publications = ["kotlinPublish"]
         //configurations = ["archives"]
         publish = true
