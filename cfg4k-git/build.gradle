@@ -3,7 +3,8 @@ apply from: '../gradle/versions.gradle'
 dependencies {
     implementation project(":cfg4k-core")
     implementation libraries.jetbrains.kotlin.stdlib
-    implementation libraries.eclipse.jgit
+    implementation libraries.eclipse.jgit.jgit
+    implementation libraries.eclipse.jgit.jsch
 
     testImplementation  libraries.jetbrains.spek.api
     testImplementation  libraries.junitrunner
