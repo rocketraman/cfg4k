@@ -44,13 +44,12 @@ subprojects { p ->
     apply plugin: 'jacoco'
     apply plugin: 'org.junit.platform.gradle.plugin'
     apply plugin: "maven-publish"
+    apply plugin: "signing"
 
     sourceCompatibility = 1.8
 
     repositories {
-        mavenLocal()
         mavenCentral()
-        jcenter()
         maven { url 'https://jetbrains.jfrog.io/jetbrains/spek-snapshots' }
     }
 
@@ -74,14 +73,65 @@ subprojects { p ->
         publications {
             kotlinPublish(MavenPublication) {
                 from components.java
-                groupId 'com.jdiazcano.cfg4k'
+                groupId 'com.github.rocketraman.cfg4k'
                 artifactId p.name
                 version project.artifactVersion
 
                 artifact sourcesJar
                 artifact javadocJar
+                pom {
+                    name = project.name
+                    description = "Cfg4k is a configuration library made for Kotlin in Kotlin!"
+                    url = "https://github.com/rocketraman/cfg4k"
+                    licenses {
+                        license {
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'jdiazcano'
+                            name = 'Javier Diaz'
+                            email = "unknown@example.com"
+                        }
+                        developer {
+                            id = 'rocketraman'
+                            name = 'Raman Gupta'
+                            email = 'rocketraman@gmail.com'
+                        }
+                    }
+                    scm {
+                        connection = 'scm:git:git@github.com:rocketraman/cfg4k.git'
+                        developerConnection = 'scm:git:git@github.com:rocketraman/cfg4k.git'
+                        url = 'https://github.com/rocketraman/cfg4k'
+                    }
+                }
             }
         }
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = "https://maven.pkg.github.com/rocketraman/cfg4k"
+                credentials {
+                    username = githubRepoUser
+                    password = githubRepoToken
+                }
+            }
+            maven {
+                name = "MavenCentral"
+                url = "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+                credentials {
+                    username = sonatypeUser
+                    password = sonatypePassword
+                }
+            }
+        }
+    }
+
+    signing {
+        useGpgCmd()
+        sign publishing.publications.kotlinPublish
     }
 
     // Needed because there's something messy with kotlin version numbers and dependencies
