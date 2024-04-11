@@ -1,5 +1,9 @@
 [![Build Status](https://travis-ci.org/jdiazcano/cfg4k.svg?branch=master)](https://travis-ci.org/jdiazcano/cfg4k) [![Coverage Status](https://coveralls.io/repos/github/jdiazcano/cfg4k/badge.svg?branch=master)](https://coveralls.io/github/jdiazcano/cfg4k?branch=master) [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [ ![Download](https://api.bintray.com/packages/jdiazcano/cfg4k/cfg4k-core/images/download.svg) ](https://bintray.com/jdiazcano/cfg4k/)
 
+# News
+Like the [original author](https://github.com/jdiazcano/cfg4k), I'm not actively maintaining cfg4k any longer.
+I've migrated to using Hoplite which, with [some](https://github.com/sksamuel/hoplite/pull/412) [PRs](https://github.com/sksamuel/hoplite/pull/413) [from](https://github.com/sksamuel/hoplite/pull/414) [me](https://github.com/sksamuel/hoplite/pull/415), bring it to functional equivalency or better with cfg4k.
+
 # Overview 
 Cfg4k is a configuration library made for Kotlin in Kotlin!
 
