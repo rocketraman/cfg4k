@@ -14,7 +14,7 @@ data class ObjectWithAllTheThings(
         val potatoList: List<Potato>,
         val potatoMap: Map<String, Potato>,
         val nullableString: String?,
-//        val stringWithDefault: String = "def", TODO defaults in data classes aren't totally supported
+        val stringWithDefault: String = "def",
         val randomThing: String?
 )
 

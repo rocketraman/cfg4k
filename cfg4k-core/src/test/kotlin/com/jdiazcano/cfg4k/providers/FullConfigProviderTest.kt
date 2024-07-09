@@ -155,7 +155,7 @@ class FullConfigProviderTest: StringSpec({
             potatoMap shouldBe mapOf("1" to Potato("PotatoName1", 1), "2" to Potato("PotatoName2", 2))
             randomThing shouldBe null
             nullableString shouldBe "a"
-//            stringWithDefault shouldBe "def"
+            stringWithDefault shouldBe "def"
         }
     }
 
