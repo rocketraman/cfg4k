@@ -1,10 +1,10 @@
 ext.versions = [
         jetbrains: [
-                kotlin: '1.6.10',
+                kotlin: '2.0.0',
                 spek: '1.1.2',
                 engine: '1.1.5'
         ],
-        bytebuddy: '1.10.8',
+        bytebuddy: '1.10.21',
         klaxon: '5.5',
         typesafe: '1.4.1',
         jgit: '6.0.0.202111291000-r',
@@ -15,9 +15,9 @@ ext.versions = [
         mockwebserver: '4.4.1',
         aws: '1.12.141',
         logging: '1.7.8',
-        mockk: '1.9.3',
+        mockk: '1.13.7',
         kotlintest: '3.4.2',
-        assertk: '0.13'
+        assertk: '0.13',
 ]
 
 ext.libraries = [
@@ -54,5 +54,5 @@ ext.libraries = [
         ],
         logging: "io.github.microutils:kotlin-logging:$versions.logging",
         mockk: "io.mockk:mockk:$versions.mockk",
-        assertk: "com.willowtreeapps.assertk:assertk-jvm:$versions.assertk"
+        assertk: "com.willowtreeapps.assertk:assertk-jvm:$versions.assertk",
 ]
