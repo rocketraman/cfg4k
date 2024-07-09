@@ -11,23 +11,23 @@ import io.kotlintest.shouldBe
 import io.mockk.every
 import io.mockk.mockkStatic
 import io.mockk.unmockkAll
+import java.util.Properties
 
 class SystemPropertyConfigLoaderTest : StringSpec() {
-
-    override fun beforeSpecClass(spec: Spec, tests: List<TopLevelTest>) {
-        mockkStatic(System::class)
-        every { System.getProperties() } returns mapOf(
-                "properties.groupone.keyone" to "1",
-                "properties.groupone.keytwo" to "2"
-        ).toProperties()
-    }
-
-    override fun afterSpecClass(spec: Spec, results: Map<TestCase, TestResult>) {
-        unmockkAll()
+    object TestPropertyProvider : PropertyProvider {
+        var value1 = "1"
+        var value2 = "2"
+        override val properties: Properties
+            get() {
+                return mapOf(
+                    "properties.groupone.keyone" to value1,
+                    "properties.groupone.keytwo" to value2,
+                ).toProperties()
+            }
     }
 
     init {
-        val loader by lazy { SystemPropertyConfigLoader() }
+        val loader by lazy { SystemPropertyConfigLoader(TestPropertyProvider) }
 
         "it should be good in the loader" {
             loader.get("properties.groupone.keyone").shouldBe("1".toConfig())
@@ -39,10 +39,8 @@ class SystemPropertyConfigLoaderTest : StringSpec() {
 
         "updated when reloading" {
             loader.get("properties.groupone.keyone") shouldBe "1".toConfig()
-            every { System.getProperties() } returns mapOf(
-                    "properties.groupone.keyone" to "11",
-                    "properties.groupone.keytwo" to "22"
-            ).toProperties()
+            TestPropertyProvider.value1 = "11"
+            TestPropertyProvider.value2 = "22"
             loader.reload()
             loader.get("properties.groupone.keyone") shouldBe "11".toConfig()
         }

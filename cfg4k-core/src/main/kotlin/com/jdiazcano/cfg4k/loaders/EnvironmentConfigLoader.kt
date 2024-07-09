@@ -12,8 +12,11 @@ private val DEFAULT_TRANSFORMERS = mutableListOf<(String) -> String>(
  * transformations before matching.
  */
 open class EnvironmentConfigLoader(
-        protected val transformations: MutableList<(String) -> String> = DEFAULT_TRANSFORMERS
-) : DefaultConfigLoader(System.getenv().transformice(transformations).toProperties().toConfig()) {
+    protected val transformations: MutableList<(String) -> String> = DEFAULT_TRANSFORMERS,
+    protected val environmentProvider: EnvironmentProvider = DefaultEnvironmentProvider,
+) : DefaultConfigLoader(environmentProvider.environment.transformice(transformations).toProperties().toConfig()) {
+    constructor(transformations: MutableList<(String) -> String> = DEFAULT_TRANSFORMERS)
+        : this(transformations, DefaultEnvironmentProvider)
 
     override fun get(key: String): ConfigObject? {
         transformations.forEach {
@@ -28,7 +31,7 @@ open class EnvironmentConfigLoader(
     }
 
     override fun reload() {
-        root = System.getenv().transformice(transformations).toProperties().toConfig()
+        root = environmentProvider.environment.transformice(transformations).toProperties().toConfig()
     }
 }
 

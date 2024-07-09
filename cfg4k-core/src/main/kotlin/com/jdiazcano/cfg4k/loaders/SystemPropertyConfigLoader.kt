@@ -1,8 +1,11 @@
 package com.jdiazcano.cfg4k.loaders
 
-open class SystemPropertyConfigLoader : DefaultConfigLoader(System.getProperties().toConfig()) {
+open class SystemPropertyConfigLoader(
+    protected val propertyProvider: PropertyProvider = DefaultPropertyProvider,
+) : DefaultConfigLoader(propertyProvider.properties.toConfig()) {
+    constructor() : this(DefaultPropertyProvider)
+
     override fun reload() {
-        root = System.getProperties().toConfig()
+        root = propertyProvider.properties.toConfig()
     }
 }
-
