@@ -30,7 +30,7 @@ idea {
 }
 
 project.ext {
-    artifactGroup = "com.jdiazcano.cfg4k"
+    artifactGroup = "com.github.rocketraman.cfg4k"
     artifactVersion = "0.9.6"
 }
 
@@ -73,7 +73,7 @@ subprojects { p ->
         publications {
             kotlinPublish(MavenPublication) {
                 from components.java
-                groupId 'com.github.rocketraman.cfg4k'
+                groupId project.artifactGroup
                 artifactId p.name
                 version project.artifactVersion
 
