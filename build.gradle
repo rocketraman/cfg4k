@@ -1,3 +1,6 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 buildscript {
 
     apply from: 'gradle/versions.gradle'
@@ -46,11 +49,24 @@ subprojects { p ->
     apply plugin: "maven-publish"
     apply plugin: "signing"
 
-    sourceCompatibility = 1.8
-
     repositories {
         mavenCentral()
         maven { url 'https://jetbrains.jfrog.io/jetbrains/spek-snapshots' }
+    }
+
+    kotlin {
+        jvmToolchain(17)
+        // target 11 for max compatibility
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_11)
+            languageVersion.set(KotlinVersion.KOTLIN_1_7)
+        }
+    }
+
+    // target 11 for max compatibility
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
     }
 
     // custom tasks for creating source/javadoc jars
