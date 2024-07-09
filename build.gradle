@@ -145,9 +145,11 @@ subprojects { p ->
         }
     }
 
-    signing {
-        useGpgCmd()
-        sign publishing.publications.kotlinPublish
+    if (!project.hasProperty("signingRequired") || Boolean.valueOf(project.getProperty("signingRequired"))) {
+        signing {
+            useGpgCmd()
+            sign publishing.publications.kotlinPublish
+        }
     }
 
     // Needed because there's something messy with kotlin version numbers and dependencies
